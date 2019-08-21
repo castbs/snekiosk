@@ -1,0 +1,177 @@
+<html>
+    <head>
+        <title>Weather Details</title>
+        <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    </head>
+    <body>
+        <script>
+        
+        (function(seconds) {
+    var slideshow,       
+        intvslideshow = function() {
+            clearInterval(slideshow);
+            slideshow = setTimeout(function() {
+               location.href = location.href;
+               window.open('','_self').close();
+            }, seconds * 1000);
+        };
+
+    $(document).on('keypress click', function() { intvslideshow() });
+    intvslideshow();
+
+}(60));
+        
+        
+        $.ajax({
+        url: 'http://api.openweathermap.org/data/2.5/forecast?appid=665c0a4c70ee4aecec2fd415645cc9fc&q=new%20york',
+        type: 'GET',
+        dataType: "json",
+        success: displayAll
+    });
+        
+function displayAll(data){
+    line = [];
+    for (x = 0;x<5;x++){
+        var y = x;
+        
+        var TEST = new Array();
+        TEST[0] = new Image();
+        TEST[0].src = '/home/pi/Desktop/Weather Icons/thunder_without_rain.png';
+        
+        var weather_array = new Array();
+        weather_array[0] = new Image();
+        weather_array[0].src = '/home/pi/Desktop/Weather Icons/thunder_without_rain.png';
+        weather_array[1] = new Image();
+        weather_array[1].src = '/home/pi/Desktop/Weather Icons/thunder_with_rain.png';
+        weather_array[2] = new Image();
+        weather_array[2].src = '/home/pi/Desktop/Weather Icons/heavy_rain.png';
+        weather_array[3] = new Image();
+        weather_array[3].src = '/home/pi/Desktop/Weather Icons/light_rain.png';
+        weather_array[4] = new Image();
+        weather_array[4].src = '/home/pi/Desktop/Weather Icons/snowy.png';
+        weather_array[5] = new Image();
+        weather_array[5].src = '/home/pi/Desktop/Weather Icons/sunny.png';
+        weather_array[6] = new Image();
+        weather_array[6].src = '/home/pi/Desktop/Weather Icons/clear_night.png';
+        weather_array[7] = new Image();
+        weather_array[7].src = '/home/pi/Desktop/Weather Icons/cloudy.png';
+        weather_array[8] = new Image();
+        weather_array[8].src = '/home/pi/Desktop/Weather Icons/foggy.png';
+        weather_array[9] = new Image();
+        weather_array[9].src = '/home/pi/Desktop/Weather Icons/partly_cloudy_day.png';
+        weather_array[10] = new Image();
+        weather_array[10].src = '/home/pi/Desktop/Weather Icons/partly_cloudy_night.png';
+        weather_array[11] = new Image();
+        weather_array[11].src = '/home/pi/Desktop/Weather Icons/windy.png';
+        
+        
+        TEST.forEach(function(line) {                                            
+                                                       
+          var img = document.createElement('img');  // create an img element
+                                                             
+         if (data.list[x].weather[0].main == "Thunderstorm"){
+            if (data.list[x].weather[0].description == "thunderstorm with light rain"){img.src = weather_array[0].src;}
+            else if (data.list[x].weather[0].description == "thunderstorm with rain"){img.src = weather_array[1].src;}
+            else if (data.list[x].weather[0].description == "thunderstorm with heavy rain"){img.src = weather_array[1].src;}
+            else if (data.list[x].weather[0].description == "light thunderstorm"){img.src = weather_array[1].src;}
+            else if (data.list[x].weather[0].description == "thunderstorm"){img.src = weather_array[1].src;}
+            else if (data.list[x].weather[0].description == "heavy thunderstorm"){img.src = weather_array[1].src;}
+            else if (data.list[x].weather[0].description == "ragged thunderstorm"){img.src = weather_array[1].src;}
+            else if (data.list[x].weather[0].description == "thunderstorm with light drizzle"){img.src = weather_array[0].src;}
+            else if (data.list[x].weather[0].description == "thunderstorm with drizzle"){img.src = weather_array[0].src;}
+            else{img.src = weather_array[1].src;}}
+        else if (data.list[x].weather[0].main == "Rain"){img.src = weather_array[2].src;}
+        else if (data.list[x].weather[0].main == "Drizzle"){img.src = weather_array[3].src;}
+        else if (data.list[x].weather[0].main == "Clear"){img.src = weather_array[5].src;}
+            //if (time_of_day1 == 'day'): sunny_label1.place(x=85, y=695, relwidth=0.05, relheight=0.1)
+            //else: clear_night_label1.place(x=85, y=695, relwidth=0.05, relheight=0.1)
+        else if (data.list[x].weather[0].main == "Snow"){img.src = weather_array[4].src;}
+        else if (data.list[x].weather[0].main == "Clouds"){
+            if (data.list[x].weather[0].description == "few clouds"){img.src = weather_array[10].src;}
+                //if time_of_day1 == 'day': partly_cloudy_day_label1.place(x=85, y=695, relwidth=0.05, relheight=0.1)
+                //else: partly_cloudy_night_label1.place(x=85, y=695, relwidth=0.05, relheight=0.1)
+            else if (data.list[x].weather[0].description == "scattered clouds"){img.src = weather_array[10].src;}
+                //if time_of_day1 == 'day': partly_cloudy_day_label1.place(x=85, y=695, relwidth=0.05, relheight=0.1)
+                //else: partly_cloudy_night_label1.place(x=85, y=695, relwidth=0.05, relheight=0.1)
+            else if (data.list[x].weather[0].description == "broken clouds"){img.src = weather_array[7].src;}
+            else{img.src = weather_array[7].src;}}
+        else if (data.list[x].weather[0].main == "Mist") {img.src = weather_array[8].src;}
+        else if (data.list[x].weather[0].main == "Smoke") {img.src = weather_array[11].src;}
+        else if (data.list[x].weather[0].main == "Haze") {img.src = weather_array[8].src;}
+        else if (data.list[x].weather[0].main == "Dust") {img.src = weather_array[11].src;}
+        else if (data.list[x].weather[0].main == "Ash") {img.src = weather_array[11].src;}
+        else if (data.list[x].weather[0].main == "Squall") {img.src = weather_array[2].src;}
+        else {img.src = weather_array[11].src;}
+                                            
+        img.width = 350;
+        img.height = 350;
+        document.body.appendChild(img);
+});
+        
+        var raw_raw_time = data.list[x].dt_txt;
+        var raw_time = (new Date(raw_raw_time + " UTC")).toString();
+        var time_day = raw_time.split(" ")[1] + " " + raw_time.split(" ")[2];
+        var time_hour = raw_time.split(" ")[4].split(":")[0];
+        if (Math.floor(time_hour) == 0){time_hour = "12 AM";}
+        else if (Math.floor(time_hour) < 12){time_hour = (Math.floor(time_hour)) + " AM";}
+        else if (Math.floor(time_hour) == 12){time_hour = "12 PM";}
+        else if (Math.floor(time_hour) > 12){time_hour = (Math.floor(time_hour) - 12) + " PM";}
+        time_day_hour_combo = time_day + ", " + time_hour;
+        time_day_hour_combo_bold = time_day_hour_combo.bold();
+        var temp1a_int_average = "Average Temperature: " + (Math.floor(((data.list[x].main.temp) * 9/5) - 459.67)) + "° F";
+        var temp1a_int_min = "Min Temperature: " + (Math.floor(((data.list[x].main.temp_min) * 9/5) - 459.67)) + "° F";
+        var temp1a_int_max = "Max Temperature: " + (Math.floor(((data.list[x].main.temp_max) * 9/5) - 459.67)) + "° F";
+        var temp1b = "Humidity: " + data.list[x].main.humidity + "%";
+        var temp1c = "The forecast is " + data.list[x].weather[0].description + ".";
+        var temp1d = "Pressure: " + data.list[x].main.pressure + " hpa";
+        var temp1e_speed = "Wind Speed: " + data.list[x].wind.speed + " m/s";
+        
+        line.push(time_day_hour_combo_bold + "<br>" + temp1a_int_average + "<br>" + temp1a_int_min + "<br>" + temp1a_int_max + "<br> <br>" + temp1b + "<br>" + temp1d + "<br>" + temp1e_speed + "<br> <br>" + temp1c);
+    }
+    big_break = "<br> <br> <br>";
+    line_separator = "_____________________________";
+    line_separator_bold = line_separator.bold();
+    separation = "<br>" + line_separator_bold + big_break;
+    weather_details = line[0] + separation + line[1] + separation + line[2] + separation + line[3] + separation + line[4] + separation + line[5];
+    weather_details2 = weather_details.replace("undefined", "");
+    
+    $('.line1').html(weather_details2);
+}
+
+        </script>
+        <style type="text/css">
+            .btn {
+                background-color: red;
+                color: white;
+                position:absolute;
+                transition: .5s ease;
+                top: 10px;
+                left: 10px;
+                width: 200px;
+                height: 85px;
+                font-family: Lato;
+                font-size: 2em;
+                text-align: center;
+            }
+            
+            .line1 {
+                color: red;
+                position: absolute;
+                transition: .5s ease;
+                top: 350px;
+                left: 35%;
+                font-family: Lato;
+                font-size: 2em;
+                text-align: center;
+            }
+        </style>
+        
+    <a href="javascript:window.open('','_self').close();" class="btn">Return to Home Screen</a>
+        
+        <div class="line1" id="1">
+            <div><span class="line1"/><div><br>
+        </div>
+             
+    </body>
+</html>

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html;charset=utf-16"=
+ />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+</head>
+
+<body>
+
+<a href="javascript:window.open('','_self').close();" class="btn">Return to Home Screen</a>
+
+
+<h1 class="result"><span id="date"></span></h1>
+<label class="container"><div id="result"></div>
+
+<h1 class="redtext"><span id="national_day"></span></h1>
+<label class="container"><div id="national_day"></div>
+
+
+
+</body>
+
+    <script type="text/javascript"
+src='/home/pi/Desktop/national_days_db.js'></script>
+
+<script>
+
+(function(seconds) {
+    var slideshow,       
+        intvslideshow = function() {
+            clearInterval(slideshow);
+            slideshow = setTimeout(function() {
+               location.href = location.href;
+               window.open('','_self').close();
+            }, seconds * 1000);
+        };
+
+    $(document).on('keypress click', function() { intvslideshow() });
+    intvslideshow();
+
+}(120));
+
+
+var today = new Date();
+
+
+var date = today.getDate();
+var month = today.getMonth();
+
+today_date=[];
+
+weekday=[];
+date_array=[];
+national_day=[];
+
+result=[];
+
+
+if (month==0) {month="January";}
+else if (month==1) {month="February";}
+else if (month==2) {month="March";}
+else if (month==3) {month="April";}
+else if (month==4) {month="May";}
+else if (month==5) {month="June";}
+else if (month==6) {month="July";}
+else if (month==7) {month="August";}
+else if (month==8) {month="September";}
+else if (month==9) {month="October";}
+else if (month==10) {month="November";}
+else if (month==11) {month="December";}
+
+todays_date=(month +" "+ date);
+
+for (i=0; i<national_days_array.length; i++) {
+    row=national_days_array[i];
+    temp_today_date=(row[0]+" , "+row[1])
+    today_date.push(temp_today_date);
+    //console.log(weekday[i] + " -- " + date_array[i] + " -- " + national_day[i] + " -- " + todays_date);
+    
+    if (todays_date==row[1]) {
+        result.push(temp_today_date);
+        }
+    if (todays_date==row[1]) {
+        national_day.push(row[2]);
+        }
+    }
+
+
+
+document.getElementById("national_day").innerHTML=national_day;
+document.getElementById("date").innerHTML=result;
+
+</script>
+
+<style>
+
+ .btn {
+  background-color: red;
+  color: white;
+                
+  position:absolute;
+  transition: .5s ease;
+  top: 10px;
+  left: 8px;
+                
+  width: 200px;
+  height: 85px;
+                
+  font-family: Lato;
+  font-size: 2em;
+                
+  text-align: center;
+}
+
+.result {
+    background-color: red;
+    color: white;
+    top:100px;
+    
+    text-align:absolute;
+    font-family: Lato;
+    font-size: 8em;
+    }
+
+.redtext {
+    color: red;
+    text-align: center;
+    
+    top:500px;
+    
+    font-family: Lato;
+    font-size: 10em;
+    }
+
+
+
+
+</style>
+
+</html>

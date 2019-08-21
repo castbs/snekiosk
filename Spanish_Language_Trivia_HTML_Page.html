@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8"=
+ />
+ 
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+ 
+</head>
+
+<body>
+
+<a href="javascript:window.open('','_self').close();" class="btn">Return to Languages</a>
+
+<!--
+<form action="/home/pi/Desktop/Language_Trivia_HTML_Page.html">
+    <input class=btn type="submit" value="Return to Languages" />
+</form>
+-->
+
+<form>
+    <h1 class="redtext">Translate: <span id="french_words"></span></h1>
+<label class="container"><div id="answerA"></div>
+<!--<input type="checkbox" checked="checked">-->
+  <input type="checkbox" onclick="if(this.checked){selectA()}">
+  <span class="checkmark"></span>
+</label>
+<label class="container"><div id="answerB"></div>
+  <input type="checkbox" onclick="if(this.checked){selectB()}">
+  <span class="checkmark"></span>
+</label>
+<label class="container"><div id="answerC"></div>
+  <input type="checkbox" onclick="if(this.checked){selectC()}">
+  <span class="checkmark"></span>
+</label>
+<label class="container"><div id="answerD"></div>
+  <input type="checkbox" onclick="if(this.checked){selectD()}">
+  <span class="checkmark"></span>
+</label>
+</form>
+</body>
+
+    <script type="text/javascript"
+src='/home/pi/Desktop/spanish_db.js'></script>
+
+<script>
+var random_num = Math.floor(Math.random()*spanish_array.length);
+
+
+french_words=[];
+english_words=[];
+answer_array=[];
+wrong_answer_array=[];
+
+
+answerA="";
+answerB="";
+answerC="";
+answerD="";
+fwrn="";
+ewrn = "";
+
+
+
+for (i=0; i<spanish_array.length; i++) {
+    row=spanish_array[i];
+    french_words.push(row[0]);
+    english_words.push(row[1]);
+    }
+
+answer_array.push(english_words[random_num]);
+
+//for (i=0; i<answer_array.length; i++)
+while (answer_array.length<5) {
+    var wrong_num = Math.floor(Math.random()*spanish_array.length);
+    if (answer_array.includes(english_words[wrong_num])) {;}
+    else {answer_array.push(english_words[wrong_num]);}
+    }
+
+
+var answer_num = Math.floor(Math.random()*answer_array.length);
+
+
+if (answer_num==0){
+    answerA=(answer_array[0]);
+    answerB=(answer_array[1]);
+    answerC=(answer_array[2]);
+    answerD=(answer_array[3]);
+    }
+
+else if (answer_num==1) {
+    answerA=(answer_array[3]);
+    answerB=(answer_array[0]);
+    answerC=(answer_array[1]);
+    answerD=(answer_array[2]);
+    }
+
+
+else if (answer_num==2) {
+    answerA=(answer_array[2]);
+    answerB=(answer_array[1]);
+    answerC=(answer_array[0]);
+    answerD=(answer_array[3]);
+    }
+
+else if (answer_num==3) {
+    answerA=(answer_array[1]);
+    answerB=(answer_array[2]);
+    answerC=(answer_array[3]);
+    answerD=(answer_array[0]);
+    }
+
+function selectA() {
+    if (answer_num==0){
+        alert("correct");
+        document.location.reload(true);}
+    else {alert("incorrect");}
+    }
+
+function selectB() {
+    if (answer_num==1){
+         alert("correct");
+        document.location.reload(true);}
+    else {alert("incorrect");}
+    }
+
+function selectC() {
+    if (answer_num==2){
+         alert("correct");
+        document.location.reload(true);}
+    else {alert("incorrect");}
+    }
+
+function selectD() {
+    if (answer_num==3){
+        alert("correct");
+        document.location.reload(true);}
+    else {alert("incorrect");}
+    }
+
+
+document.getElementById("french_words").innerHTML=french_words[random_num];
+//document.getElementById("english_words").innerHTML=english_words[random_num];
+
+document.getElementById("answerA").innerHTML=answerA;
+document.getElementById("answerB").innerHTML=answerB;
+document.getElementById("answerC").innerHTML=answerC;
+document.getElementById("answerD").innerHTML=answerD;
+
+
+//document.getElementById("selectA").innerHTML=selectA();
+//document.getElementById("selectB").innerHTML=selectB;
+//document.getElementById("selectC").innerHTML=selectC;
+//document.getElementById("selectD").innerHTML=selectD;
+
+//alert(answer_array);
+
+//  alert_text=french_words[random_num]+ "-- " + english_words[random_num]
++ "    1   " + answer_array[0] + "    1   " + answer_array[1] + "    1   "
++ answer_array[2] + "    1   " + answer_array[3];
+
+
+
+//alert(alert_text);
+
+(function(seconds) {
+    var slideshow,       
+        intvslideshow = function() {
+            clearInterval(slideshow);
+            slideshow = setTimeout(function() {
+               location.href = location.href;
+               window.open('','_self').close();
+            }, seconds * 1000);
+        };
+
+    $(document).on('keypress click', function() { intvslideshow() });
+    intvslideshow();
+
+}(60));
+
+
+</script>
+
+<style>
+
+ .btn {
+                background-color: red;
+                color: white;
+                
+                position:absolute;
+                transition: .5s ease;
+                top: 10px;
+                left: 10px;
+                
+                width: 200px;
+                height: 85px;
+                
+                font-family: Lato;
+                font-size: 2em;
+                
+                text-align: center;
+            }
+
+.redtext {
+    position:absolute;
+    top: 100px;
+    font-size: 50px;
+    color: red;
+    }
+
+/* The container */
+.container {
+  color: red;
+  display: block;
+  position: relative;
+  top: 200px;
+  padding-left: 75px;
+  margin-bottom: 40px;
+  cursor: pointer;
+  font-size: 37px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 50px;
+  width: 50px;
+  background-color: #eee;
+}
+
+
+.container input:checked ~ .checkmark {
+  background-color: #2196F3;
+  background-color: red;
+}
+
+
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+.container input:checked ~ .checkmark:after {
+  display: block;
+}
+
+.container .checkmark:after {
+  left: 12px;
+  top: 0px;
+  width: 20px;
+  height: 40px;
+  border: solid white;
+  border-width: 0 6px 6px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+</style>
+
+</html>
